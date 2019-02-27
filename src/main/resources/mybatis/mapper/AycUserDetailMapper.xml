@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ayc.service.uc.dao.mapper.AycUserDetailMapper">
+    <resultMap id="BaseResultMap" type="com.ayc.service.uc.entity.AycUserDetailEntity">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="uid" jdbcType="INTEGER" property="uid" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="award_times" jdbcType="INTEGER" property="awardTimes" />
+        <result column="award_cash" jdbcType="DECIMAL" property="awardCash" />
+        <result column="buy_times" jdbcType="INTEGER" property="buyTimes" />
+        <result column="buy_cash" jdbcType="DECIMAL" property="buyCash" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="article_num" jdbcType="INTEGER" property="articleNum" />
+        <result column="awarded_times" jdbcType="INTEGER" property="awardedTimes" />
+        <result column="awarded_cash" jdbcType="DECIMAL" property="awardedCash" />
+        <result column="buyed_times" jdbcType="INTEGER" property="buyedTimes" />
+        <result column="buyed_cash" jdbcType="DECIMAL" property="buyedCash" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="oit_num" jdbcType="DECIMAL" property="oitNum" />
+        <result column="balance" jdbcType="DECIMAL" property="balance" />
+        <result column="exchange_oit_num" jdbcType="DECIMAL" property="exchangeOitNum" />
+        <result column="exchange_oit_cash" jdbcType="DECIMAL" property="exchangeOitCash" />
+        <result column="use_oit_num" jdbcType="DECIMAL" property="useOitNum" />
+        <result column="focus_num" jdbcType="INTEGER" property="focusNum" />
+        <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+        <result column="pen_name" jdbcType="VARCHAR" property="penName" />
+        <result column="wallet_is_red" jdbcType="TINYINT" property="walletIsRed" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, uid, type, nickname, award_times, award_cash, buy_times, buy_cash, status, article_num,
+    awarded_times, awarded_cash, buyed_times, buyed_cash, created_at, updated_at, oit_num,
+    balance, exchange_oit_num, exchange_oit_cash, use_oit_num, focus_num, check_time,
+    pen_name, wallet_is_red
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ayc_user_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 通过实体的字段查询 -->
+    <select id="selectByEntity" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ayc_user_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id, jdbcType=INTEGER}
+            </if>
+            <if test="uid != null and uid != ''">
+                and uid = #{uid, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ayc_user_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity">
+    insert into ayc_user_detail (id, uid, type,
+      nickname, award_times, award_cash,
+      buy_times, buy_cash, status,
+      article_num, awarded_times, awarded_cash,
+      buyed_times, buyed_cash, created_at,
+      updated_at, oit_num, balance,
+      exchange_oit_num, exchange_oit_cash, use_oit_num,
+      focus_num, check_time, pen_name,
+      wallet_is_red)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
+      #{nickname,jdbcType=VARCHAR}, #{awardTimes,jdbcType=INTEGER}, #{awardCash,jdbcType=DECIMAL},
+      #{buyTimes,jdbcType=INTEGER}, #{buyCash,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT},
+      #{articleNum,jdbcType=INTEGER}, #{awardedTimes,jdbcType=INTEGER}, #{awardedCash,jdbcType=DECIMAL},
+      #{buyedTimes,jdbcType=INTEGER}, #{buyedCash,jdbcType=DECIMAL}, #{createdAt,jdbcType=TIMESTAMP},
+      #{updatedAt,jdbcType=TIMESTAMP}, #{oitNum,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL},
+      #{exchangeOitNum,jdbcType=DECIMAL}, #{exchangeOitCash,jdbcType=DECIMAL}, #{useOitNum,jdbcType=DECIMAL},
+      #{focusNum,jdbcType=INTEGER}, #{checkTime,jdbcType=TIMESTAMP}, #{penName,jdbcType=VARCHAR},
+      #{walletIsRed,jdbcType=TINYINT})
+  </insert>
+    <!--注册用户-->
+    <insert id="registerUser" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity">
+        insert into ayc_user_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="awardTimes != null">
+                award_times,
+            </if>
+            <if test="awardCash != null">
+                award_cash,
+            </if>
+            <if test="buyTimes != null">
+                buy_times,
+            </if>
+            <if test="buyCash != null">
+                buy_cash,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="articleNum != null">
+                article_num,
+            </if>
+            <if test="awardedTimes != null">
+                awarded_times,
+            </if>
+            <if test="awardedCash != null">
+                awarded_cash,
+            </if>
+            <if test="buyedTimes != null">
+                buyed_times,
+            </if>
+            <if test="buyedCash != null">
+                buyed_cash,
+            </if>
+            <if test="createdAt != null">
+                created_at,
+            </if>
+            <if test="updatedAt != null">
+                updated_at,
+            </if>
+            <if test="oitNum != null">
+                oit_num,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+            <if test="exchangeOitNum != null">
+                exchange_oit_num,
+            </if>
+            <if test="exchangeOitCash != null">
+                exchange_oit_cash,
+            </if>
+            <if test="useOitNum != null">
+                use_oit_num,
+            </if>
+            <if test="focusNum != null">
+                focus_num,
+            </if>
+            <if test="checkTime != null">
+                check_time,
+            </if>
+            <if test="penName != null">
+                pen_name,
+            </if>
+            <if test="walletIsRed != null">
+                wallet_is_red,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="awardTimes != null">
+                #{awardTimes,jdbcType=INTEGER},
+            </if>
+            <if test="awardCash != null">
+                #{awardCash,jdbcType=DECIMAL},
+            </if>
+            <if test="buyTimes != null">
+                #{buyTimes,jdbcType=INTEGER},
+            </if>
+            <if test="buyCash != null">
+                #{buyCash,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="articleNum != null">
+                #{articleNum,jdbcType=INTEGER},
+            </if>
+            <if test="awardedTimes != null">
+                #{awardedTimes,jdbcType=INTEGER},
+            </if>
+            <if test="awardedCash != null">
+                #{awardedCash,jdbcType=DECIMAL},
+            </if>
+            <if test="buyedTimes != null">
+                #{buyedTimes,jdbcType=INTEGER},
+            </if>
+            <if test="buyedCash != null">
+                #{buyedCash,jdbcType=DECIMAL},
+            </if>
+            <if test="createdAt != null">
+                #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oitNum != null">
+                #{oitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="exchangeOitNum != null">
+                #{exchangeOitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="exchangeOitCash != null">
+                #{exchangeOitCash,jdbcType=DECIMAL},
+            </if>
+            <if test="useOitNum != null">
+                #{useOitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="focusNum != null">
+                #{focusNum,jdbcType=INTEGER},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="penName != null">
+                #{penName,jdbcType=VARCHAR},
+            </if>
+            <if test="walletIsRed != null">
+                #{walletIsRed,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity">
+        update ayc_user_detail
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="awardTimes != null">
+                award_times = #{awardTimes,jdbcType=INTEGER},
+            </if>
+            <if test="awardCash != null">
+                award_cash = #{awardCash,jdbcType=DECIMAL},
+            </if>
+            <if test="buyTimes != null">
+                buy_times = #{buyTimes,jdbcType=INTEGER},
+            </if>
+            <if test="buyCash != null">
+                buy_cash = #{buyCash,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="articleNum != null">
+                article_num = #{articleNum,jdbcType=INTEGER},
+            </if>
+            <if test="awardedTimes != null">
+                awarded_times = #{awardedTimes,jdbcType=INTEGER},
+            </if>
+            <if test="awardedCash != null">
+                awarded_cash = #{awardedCash,jdbcType=DECIMAL},
+            </if>
+            <if test="buyedTimes != null">
+                buyed_times = #{buyedTimes,jdbcType=INTEGER},
+            </if>
+            <if test="buyedCash != null">
+                buyed_cash = #{buyedCash,jdbcType=DECIMAL},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oitNum != null">
+                oit_num = #{oitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+            <if test="exchangeOitNum != null">
+                exchange_oit_num = #{exchangeOitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="exchangeOitCash != null">
+                exchange_oit_cash = #{exchangeOitCash,jdbcType=DECIMAL},
+            </if>
+            <if test="useOitNum != null">
+                use_oit_num = #{useOitNum,jdbcType=DECIMAL},
+            </if>
+            <if test="focusNum != null">
+                focus_num = #{focusNum,jdbcType=INTEGER},
+            </if>
+            <if test="checkTime != null">
+                check_time = #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="penName != null">
+                pen_name = #{penName,jdbcType=VARCHAR},
+            </if>
+            <if test="walletIsRed != null">
+                wallet_is_red = #{walletIsRed,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity">
+    update ayc_user_detail
+    set uid = #{uid,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      award_times = #{awardTimes,jdbcType=INTEGER},
+      award_cash = #{awardCash,jdbcType=DECIMAL},
+      buy_times = #{buyTimes,jdbcType=INTEGER},
+      buy_cash = #{buyCash,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT},
+      article_num = #{articleNum,jdbcType=INTEGER},
+      awarded_times = #{awardedTimes,jdbcType=INTEGER},
+      awarded_cash = #{awardedCash,jdbcType=DECIMAL},
+      buyed_times = #{buyedTimes,jdbcType=INTEGER},
+      buyed_cash = #{buyedCash,jdbcType=DECIMAL},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      oit_num = #{oitNum,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      exchange_oit_num = #{exchangeOitNum,jdbcType=DECIMAL},
+      exchange_oit_cash = #{exchangeOitCash,jdbcType=DECIMAL},
+      use_oit_num = #{useOitNum,jdbcType=DECIMAL},
+      focus_num = #{focusNum,jdbcType=INTEGER},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      pen_name = #{penName,jdbcType=VARCHAR},
+      wallet_is_red = #{walletIsRed,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <update id="updateByUid" parameterType="com.ayc.service.uc.entity.AycUserDetailEntity">
+        update ayc_user_detail set balance = #{balance} where uid = #{uid}
+    </update>
+</mapper>

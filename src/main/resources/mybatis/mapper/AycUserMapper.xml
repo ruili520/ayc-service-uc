@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ayc.service.uc.dao.mapper.AycUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ayc.service.uc.entity.AycUserEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="unnid" property="unnid" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, province, city, ip, avatar, unnid, openid, created_at, wechat, view_count,
+    like_count, mobile, sex, salt, password
+  </sql>
+
+    <!--<insert id="insert" parameterType="com.ayc.service.uc.entity.AycUserEntity">-->
+    <!--insert into ayc_user (id, ip, avatar, unnid,-->
+      <!--openid, created_at, like_count, mobile,-->
+      <!--salt, password-->
+      <!--)-->
+    <!--values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR},-->
+      <!--#{createdAt,jdbcType=TIMESTAMP}, #{mobile,jdbcType=VARCHAR},-->
+      <!--#{salt,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}-->
+      <!--)-->
+  <!--</insert>-->
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ayc_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserByMobile" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ayc_user
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByUserName" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ayc_user
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectUserByOpenid" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ayc_user
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ayc_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ayc.service.uc.entity.AycUserEntity" >
+    insert into ayc_user (id, name, province,
+      city, ip, avatar, unnid,
+      openid, created_at, wechat,
+      view_count, like_count, mobile,
+      sex, salt, password
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{unnid,jdbcType=VARCHAR},
+      #{openid,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{wechat,jdbcType=VARCHAR},
+      #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR},
+      #{sex,jdbcType=TINYINT}, #{salt,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ayc.service.uc.entity.AycUserEntity" >
+    update ayc_user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="unnid != null" >
+        unnid = #{unnid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null" >
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="registerUser" parameterType="com.ayc.service.uc.entity.AycUserEntity" >
+    insert into ayc_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="unnid != null" >
+        unnid,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="likeCount != null" >
+        like_count,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="unnid != null" >
+        #{unnid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null" >
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.ayc.service.uc.entity.AycUserEntity" >-->
+    <!--update ayc_user-->
+    <!--<set >-->
+      <!--<if test="name != null" >-->
+        <!--name = #{name,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="province != null" >-->
+        <!--province = #{province,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="city != null" >-->
+        <!--city = #{city,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="ip != null" >-->
+        <!--ip = #{ip,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="avatar != null" >-->
+        <!--avatar = #{avatar,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="unnid != null" >-->
+        <!--unnid = #{unnid,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="openid != null" >-->
+        <!--openid = #{openid,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createdAt != null" >-->
+        <!--created_at = #{createdAt,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="wechat != null" >-->
+        <!--wechat = #{wechat,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="viewCount != null" >-->
+        <!--view_count = #{viewCount,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="likeCount != null" >-->
+        <!--like_count = #{likeCount,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="mobile != null" >-->
+        <!--mobile = #{mobile,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="sex != null" >-->
+        <!--sex = #{sex,jdbcType=TINYINT},-->
+      <!--</if>-->
+      <!--<if test="salt != null" >-->
+        <!--salt = #{salt,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="password != null" >-->
+        <!--password = #{password,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</update>-->
+<!--更新用户的IP信息-->
+  <update id="updateIp" parameterType="com.ayc.service.uc.entity.AycUserEntity" >
+        update ayc_user
+        <set >
+                ip = #{ip,jdbcType=VARCHAR},
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.ayc.service.uc.entity.AycUserEntity" >
+    update ayc_user
+    set name = #{name,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      unnid = #{unnid,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      salt = #{salt,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
+  <resultMap id="UserAndUserDetailResultMap" type="com.ayc.service.uc.entity.AycUserEntity">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="unnid" property="unnid" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <collection property="aycUserDetailEntity" column="id" select="getDetail">
+    </collection>
+  </resultMap>
+  <resultMap id="UserDetailResultMap" type="com.ayc.service.uc.entity.AycUserDetailEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="award_times" jdbcType="INTEGER" property="awardTimes" />
+    <result column="award_cash" jdbcType="DECIMAL" property="awardCash" />
+    <result column="buy_times" jdbcType="INTEGER" property="buyTimes" />
+    <result column="buy_cash" jdbcType="DECIMAL" property="buyCash" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="article_num" jdbcType="INTEGER" property="articleNum" />
+    <result column="awarded_times" jdbcType="INTEGER" property="awardedTimes" />
+    <result column="awarded_cash" jdbcType="DECIMAL" property="awardedCash" />
+    <result column="buyed_times" jdbcType="INTEGER" property="buyedTimes" />
+    <result column="buyed_cash" jdbcType="DECIMAL" property="buyedCash" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="oit_num" jdbcType="DECIMAL" property="oitNum" />
+    <result column="balance" jdbcType="DECIMAL" property="balance" />
+    <result column="exchange_oit_num" jdbcType="DECIMAL" property="exchangeOitNum" />
+    <result column="exchange_oit_cash" jdbcType="DECIMAL" property="exchangeOitCash" />
+    <result column="use_oit_num" jdbcType="DECIMAL" property="useOitNum" />
+    <result column="focus_num" jdbcType="INTEGER" property="focusNum" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="pen_name" jdbcType="VARCHAR" property="penName" />
+    <result column="wallet_is_red" jdbcType="TINYINT" property="walletIsRed" />
+  </resultMap>
+  <select id="getUserDetail" resultMap="UserAndUserDetailResultMap">
+    select * from ayc_user where id = #{id}
+  </select>
+  <select id="getDetail" resultMap="UserDetailResultMap">
+    select * from ayc_user_detail where uid = #{id}
+  </select>
+
+
+</mapper>
